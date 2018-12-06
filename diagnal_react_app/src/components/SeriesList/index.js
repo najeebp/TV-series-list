@@ -6,7 +6,7 @@ const SeriesListItem = (props) =>
 		<div key={index} className="w-1/3 px-2">
 			<LazyLoad height={200}>
 				<div>
-					<img className="w-full" src={require(`../../assets/images/${item['poster-image']}`)} alt="Sunset in the mountains" />
+					<img className="w-full" onError={(e) => this.src=require(`../../assets/images/placeholder_for_missing_posters.png`)} src={require(`../../assets/images/${item['poster-image']}`)} alt="Sunset in the mountains" />
 					<p className="text-grey-darker text-base">{item.name}</p>
 				</div>
 			</LazyLoad>
