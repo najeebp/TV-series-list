@@ -2,8 +2,8 @@ import React from 'react'
 import LazyLoad from 'react-lazy-load'
 
 const SeriesListItem = (props) =>
-	props.data.map((item) =>
-		<div className="w-1/3 px-2">
+	props.data.map((item, index) =>
+		<div key={index} className="w-1/3 px-2">
 			<LazyLoad height={200}>
 				<div>
 					<img className="w-full" src={require(`../../assets/images/${item['poster-image']}`)} alt="Sunset in the mountains" />

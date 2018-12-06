@@ -14,12 +14,9 @@ app.get('/load_json/:page_number', (req, res) => res.send(loadJsonFile(req.param
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-
 const loadJsonFile = (page_number) => {
     page_number = page_number > 3 ? 1 : page_number
     let rawdata = fs.readFileSync(`./json/CONTENTLISTINGPAGE-PAGE${page_number}.json`)
-    let student = JSON.parse(rawdata);
-    console.log(student)
-    return student
+    return JSON.parse(rawdata);
 }
 
