@@ -1,10 +1,10 @@
 # TV-series-list
 
-<npm install>
+npm install
 
-<npm start>
+npm start
 
-<node express.js>
+node express.js
 
 please render on mobile browser view
 
