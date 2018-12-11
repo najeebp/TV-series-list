@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SeriesList from '../../components/SeriesList'
-
 import { fetchSeries } from '../../actions'
 import _ from 'lodash'
 import { LOAD_JSON_URL } from '../../actions/constants'
@@ -14,7 +13,7 @@ class Series extends Component {
 			showSearchField: false,
 			scroll_count: 1,
 			search_string: "",
-			seriesListDup:[]
+			seriesListDup: []
 		}
 	}
 
@@ -42,20 +41,23 @@ class Series extends Component {
 				.then((result) => { this.props.fetchSeries(result) })
 		}
 	}
+	onSearchIconClick() {
+		this.setState({ showSearchField: !this.state.showSearchField })
+	}
 
 	onChangeTextInput(event) {
-		let updatedSeriesList = _.filter(this.props.seriesList, (series) => { return series.name.indexOf(event.target.value) > -1 });
-		this.setState({seriesListDup: updatedSeriesList, search_string: event.target.value})
+		let updatedSeriesList = _.filter(this.props.seriesList, (series) => { return _.includes(_.lowerCase(series.name), _.lowerCase(event.target.value)) });
+		this.setState({ seriesListDup: updatedSeriesList, search_string: event.target.value })
 	}
 
 	render() {
 		return (
-			<div style={{ backgroundColor: 'black' }}>
+			<div style={{ backgroundColor: 'black', width: '100%' }} >
 				<div className="px-2 fixed pin">
-					<img className="w-full relative " src={require(`../../assets/images/nav_bar.png`)} alt="naviation bar" />
+					<img className="w-full relative" src={require(`../../assets/images/nav_bar.png`)} alt="naviation bar" />
 					<img className="absolute w-4" src={require(`../../assets/images/Back.png`)} alt="back" style={{ top: '14px', left: '16px' }} />
-					<img className="absolute w-4" src={require(`../../assets/images/search.png`)} alt="search icon" style={{ top: '14px', right: '10px' }} onClick={() => { this.setState({ showSearchField: !this.state.showSearchField }) }} />
-					{this.state.showSearchField && <input className="absolute rounded" type="text" style={{ width: '46%', top: '10px', right: '33px' }} onChange={(event) => this.onChangeTextInput(event)} />}
+					<img className="absolute w-4" src={require(`../../assets/images/search.png`)} alt="search icon" style={{ top: '14px', right: '10px' }} onClick={() => this.onSearchIconClick()} />
+					{this.state.showSearchField && <input className="absolute rounded" id="search_bar" type="text" autoFocus style={{ width: '35%', top: '10px', right: '33px' }} onChange={(event) => this.onChangeTextInput(event)} />}
 					<div className="absolute text-white" style={{ top: '14px', left: '45px' }}> {this.props.title} </div>
 				</div>
 				<SeriesList data={this.state.search_string ? this.state.seriesListDup : this.props.seriesList} />
